@@ -295,4 +295,81 @@ const minimumIsland = (grid) => {
     
     // return size
     return size
+  };
+
+// prereqs possible
+// Write a function, prereqsPossible, that takes in a number of courses (n) and prerequisites as arguments. 
+// Courses have ids ranging from 0 through n - 1. A single prerequisite of [A, B] means that course A must be taken before course B. 
+// The function should return a boolean indicating whether or not it is possible to complete all courses.
+
+const prereqsPossible = (numCourses, prereqs) => {
+  // create variable for visiting
+  let visiting = new Set();
+
+  // create variable for visited
+  let visited = new Set();
+
+  // create variable for graph to equal buildGraph helper function that passes in numCourses and repreqs.
+  const graph = buildGraph(numCourses, prereqs)
+
+  // loop thru each node in the graph
+  for (let node in graph) {
+    // if there is a cycle, return false.
+    if (hasCycle(graph, node, visiting, visited)){
+      return false;
+    }
   }
+
+  // return true;
+  return true;
+};
+
+// create hasCycle helper function
+const hasCycle = (graph, node, visiting, visited) => {
+  // if node has visited, return false;
+  if(visited.has(node)) return false;
+
+  // if node is visiting, return true;
+  if(visiting.has(node)) return true;
+
+  // add node to visiting
+  visiting.add(node);
+
+  // loop thru neighbors of graph[node]
+  for(let neighbor of graph[node]){
+    // if hasCycle is true, return true;
+    if(hasCycle(graph, neighbor, visiting, visited)) return true;
+  }
+
+  // delete node from visiting 
+  visiting.delete(node);
+
+  // add node to visited
+  visited.add(node);
+
+  // return false;
+  return false
+};
+
+// create buildGraph helper function
+const buildGraph = (numCourses, prereqs) => {
+  // create variable for graph and equal to empty object
+  let graph = {}
+  // for loop thru numCourses
+  for (let i = 0; i < numCourses; i++){
+    // for each iteration, create graph to equal empty array.
+    graph[i] = [];
+  }
+    
+  // for of each prereq of prereqs 
+  for (prereq of prereqs){
+    // deconstruct courseA and courseB from prereq
+    const [courseA, courseB] = prereq;
+
+    // push courseB to graph[courseA]
+    graph[courseA].push(String(courseB))
+  }
+
+  // return graph
+  return graph;
+};
