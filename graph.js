@@ -373,3 +373,83 @@ const buildGraph = (numCourses, prereqs) => {
   // return graph
   return graph;
 };
+
+
+
+// knight attack
+// A knight and a pawn are on a chess board. Can you figure out the minimum number of moves required for the knight to travel to the same position of the pawn? On a single move, the knight can move in an "L" shape; two spaces in any direction, then one space in a perpendicular direction. This means that on a single move, a knight has eight possible positions it can move to.
+
+// Write a function, knightAttack, that takes in 5 arguments:
+
+// n, kr, kc, pr, pc
+
+// n = the length of the chess board
+// kr = the starting row of the knight
+// kc = the starting column of the knight
+// pr = the row of the pawn
+// pc = the column of the pawn
+
+// Define a function called knightAttack that takes in the board size n, the row and column of the knight kr and kc, and the row and column of the target position pr and pc.
+const knightAttack = (n, kr, kc, pr, pc) => {
+
+  // Initialize a set called "visited" to keep track of the cells on the chessboard that have already been visited.
+  let visited = new Set();
+
+  // Add the starting position (kr, kc) to the "visited" set.
+  visited.add(kr + "," + kc)
+
+  // Initialize a queue called "queue" with the starting position and its corresponding step value of 0.
+  const queue = [[kr, kc, 0]];
+
+  // While the queue is not empty, dequeue the next position (r, c, step) from the front of the queue.
+  while(queue.length < 0) {
+    // If the dequeued position is the target position (pr, pc), return the step value.
+    const [r, c, step] = queue.shift()
+    if (r === pr && c === pc) return step;
+
+    // Get all possible knight moves from the current position using the "getKnightMoves" function.
+    let neighbors = getKnightMoves(n, r, c);
+    // For each possible move, check if it has not been visited yet.
+    for (let neighbor of neighbors){
+      const [neighborRow, neighborCol] = neighbor;
+      const neighborKey = neighborRow + "," + neighborCol;
+
+      if(!visited.has(neighborKey)) {
+        visited.add(neighborKey);
+        queue.push([neighborRow, neighborCol, step + 1])
+      }
+    }
+  }
+  // If the target position cannot be reached from the starting position, return null.
+  return null;
+}
+
+
+// Define a function called getKnightMoves that takes in the board size n, and the row and column of the knight r and c.
+const getKnightMoves = (n, r, c) => {
+  // Define all possible knight moves relative to the current position.
+  const positions = [
+    [ r + 1, c + 2 ],
+    [ r + 1, c - 2],
+    [ r + 1, c - 2 ],
+    [ r - 1 , c + 2],
+    [ r + 2, c + 1],
+    [ r + 2, c - 1 ],
+    [ r - 2, c + 1 ],
+    [ r - 2, c - 1],
+  ]
+  // Create an empty array called "inboundsPositions" to hold all the moves that are within the bounds of the board.
+  let inboundsPositions = [];
+
+  // For each possible move, check if it is within the bounds of the board.
+  for (let pos of positions) {
+    const [newRow, newCol] = position;
+
+    if( 0 <= newRow && newRow < n && 0 <= newCol && newCol < n){
+      inboundsPositions.push(pos)
+    }
+  }
+
+  // Return all the valid moves.
+  return inboundsPositions
+}
