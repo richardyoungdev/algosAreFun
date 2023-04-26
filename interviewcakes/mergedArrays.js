@@ -21,6 +21,4 @@ const mergeArrays = (myArray, alicesArray) => {
   };
   
 
-  // mergeArrays(myArray, alicesArray);
-
-// console.log("hello world")
+mergeArrays(myArray, alicesArray);
