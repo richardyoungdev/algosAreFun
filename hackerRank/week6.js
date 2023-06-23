@@ -37,3 +37,49 @@ const formingMagicSquares = (s) => {
 
     return minCost;
 };
+
+// counterGame
+const counterGame = () => {
+    let count = 0;
+
+    // base caes: if n is already 1, Richard wins. return "Richard"
+    if (n === 1) return "Richard";
+
+    // step 1: check if n is a power of 2 using a helper function
+    function isPower2(n) {
+        while (n >1) {
+            if (n % 2 !== 0) return false;
+            n = n / 2;
+        }
+
+        return false;
+    }
+
+    // step 2: find next lower power of 2
+    function nextLower(n) {
+        let count = 0;
+
+        while ( n > 1){
+            count++
+            n = Math.floor(n/2);
+        }
+
+        return 2** count;
+    }
+
+    // step 3: game simulation
+    while ( n > 1 ) {
+        if(isPower2(n)){
+            // if n is a power of 2, halve it
+            n = n / 2;
+            count++
+        } else {
+            // if n is not a power of 2, subtract the next lower power of 2 from it
+            n = n - nextLower(n);
+            count++
+        }
+    }
+
+    // step 4: determine winner based on count;
+    return count % 2 === 0 ? "Richard" : "Louise";
+};
