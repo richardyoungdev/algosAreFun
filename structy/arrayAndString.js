@@ -382,5 +382,33 @@ const fiveSort = (nums) => {
     return nums
 };
 
-fiveSort([12, 5, 1, 5, 12, 7]);
+// fiveSort([12, 5, 1, 5, 12, 7]);
 // -> [12, 7, 1, 12, 5, 5] 
+
+
+
+
+
+// anagram
+
+const string1 = "taco";
+const string2 = "taco"
+
+const anagram = (string1, string2) => {
+    // base case
+    // if length of string1 does NOT equal to length of string2, return false;
+    if (string1.length !== string2.length) return false;
+
+    // create helper function
+    // lower case the string
+    // split the string into individual chars
+    // sort the chars
+    // join the chars
+    const helperFunction = (str) => str.toLowerCase().split("").sort().join("");
+
+    // return two helper functions
+    return helperFunction(string1) === helperFunction(string2)
+     
+};
+
+console.log(anagram(string1, string2))
