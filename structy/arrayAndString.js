@@ -224,39 +224,40 @@ const mostFrequentChar = (string) => {
 
 // };
 
-const pairSum = (numbers, targetSum) => {
-    // create hash map
-    let previousNums = {};
-    console.log("previousNums-->", previousNums)
-    console.log("==========")
+// const pairSum = (numbers, targetSum) => {
+//     // create hash map
+//     let previousNums = {};
+//     console.log("previousNums-->", previousNums)
+//     console.log("==========")
 
-    for(let i = 0; i < numbers.length; i++){
+//     for(let i = 0; i < numbers.length; i++){
 
-        const num = numbers[i];
-        console.log("targetSum-->", targetSum)
-        console.log("num-->", num)
+//         const num = numbers[i];
+//         console.log("targetSum-->", targetSum)
+//         console.log("num-->", num)
 
-        const complement = targetSum - num;
-        console.log("complement-->", complement)
-        console.log("previousNums in for loop-->", previousNums)
+//         const complement = targetSum - num;
+//         console.log("complement-->", complement)
+//         console.log("previousNums in for loop-->", previousNums)
 
-        console.log("==========")
+//         console.log("==========")
 
-        if(!(complement in previousNums)){
-            // create keys and values into hash map
-            previousNums[num] = i
+//         if(!(complement in previousNums)){
+//             // create keys and values into hash map
+//             previousNums[num] = i
 
-        }
-        else {
-            console.log("complement-->", complement)
-            console.log("previousNums in key-->", previousNums)
+//         }
+//         else {
+//             console.log("complement-->", complement)
+//             console.log("previousNums in key-->", previousNums)
             
-            console.log([previousNums[complement], i])
+//             console.log([previousNums[complement], i])
 
-            return [previousNums[complement], i]
-        }
-    }
-};
+//             return [previousNums[complement], i]
+//         }
+//     }
+// };
+
 
 // pairSum([3, 2, 5, 4, 1], 8); // -> [0, 2]
 // pairSum([4, 7, 9, 2, 5, 1], 5); // -> [0, 5]
@@ -411,4 +412,137 @@ const anagram = (string1, string2) => {
      
 };
 
-console.log(anagram(string1, string2))
+// console.log(anagram(string1, string2))
+
+// mostFrequentChar
+
+const s = "tacocatsss"
+
+const mostFrequentChar2 = (s) => {
+    // create count object
+    const count = {};
+
+    // iterate each char in the string
+    for (let char of s){
+        if (!(count[char])){
+            count[char] = 0
+        }
+
+        count[char]++
+    }
+
+    // find key with highest value in obj and return that key
+    let maxValue = 0;
+    let maxChar = "";
+    
+    // iterate each key in the obj
+    for (let char in count){
+        console.log("char in count-->", char)
+        console.log("count[char]", count[char])
+
+        // if count[char] > maxValue, update the new maxValue as count[char] and maxChar as char
+        if(count[char] > maxValue){
+            maxValue = count[char];
+            maxChar = char;
+        }
+    }
+
+    
+    console.log("maxChar-->", maxChar)
+    return maxChar;
+};
+
+mostFrequentChar2(s)
+
+    // find key with the highest value in obj and return that key
+    // let maxValue = 0;
+    // let maxChar = "";
+
+    // for (let char in count){
+    //     console.log("count[char]-->", count[char])
+    //     console.log(char)
+
+    //     if(count[char] > maxValue){
+    //         maxValue = count[char];
+    //         maxChar = char;
+    //     }
+    // }
+    // console.log("maxChar-->", maxChar)
+    // return maxChar
+
+
+// pairSum 
+
+const numbers = [3, 2, 5, 4, 1]
+const targetSum = 8;
+
+// REACTO
+// repeat: how to create a function that inputs an array and a target sum as arguments; and return an array containing
+// a pair of indices whose elements sum to given target?
+
+// example: 3 + 5 = 8 and the indices are [0,2]
+
+// approach: 
+// 1. use a hash map that gives you O(n) time complexity
+// 2. for loop each element in the array to find the complement variable 
+
+const pairSum = (numbers, targetSum) => {
+    // create hash map using an obj
+    const previousNumbers = {};
+
+    // for loop each element in the array to find the complement variable
+    for (let i = 0; i < numbers.length; i++){
+        // create variable for current variable
+        const number = numbers[i];
+
+        // create variable for complement to check if the remaining element plus number equals to targetSum
+        // example: complement = targetSum - number;
+        const complement = targetSum - number;
+
+        //  if state to check if complement exists in the hash map, if not, add that element and index into the obj
+        if (!(complement in previousNumbers)){
+            previousNumbers[number] = i;
+        } else {
+            return [previousNumbers[complement], i]
+        }
+    }
+};
+
+// pairSum()
+
+// pair product
+
+// REACTO 
+// repeat: how to create a function that takes in an array and a target product as arguments?
+// the function should return an array containing a pair of indices whose elements multiply to the given target.
+
+// example: 2 * 4 = 8 which would return an array as [1,3]
+
+// approach: use hash map for O(n) time complexity and complement variable to find two elements
+
+// code:
+
+
+const pairProduct2 = (numbers, targetProduct) => {
+    // create hash map with an obj
+    const previousNums = {};
+
+    // use for loop to iterate each element in the numbers array
+    for (let i = 0; i < numbers.length; i++){
+        // create variable for the current num
+        const num = numbers[i];
+
+        // create variable for complement
+        const complement = targetProduct / num;
+
+        // check if the complement exists in the hash map, if yes, return the complement and index of num
+        if (complement in previousNums){
+            return [previousNums[complement], i];
+        }
+
+        // add the num and its index as a key:value pair into the hash map
+        previousNums[num] = i;
+    }
+};
+
+pairProduct2([3, 2, 5, 4, 1], 8)
