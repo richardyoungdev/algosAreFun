@@ -548,3 +548,7 @@ const pairProduct2 = (numbers, targetProduct) => {
 pairProduct2([3, 2, 5, 4, 1], 8)
 
 // testing for commit
+
+// resume stuff:
+// Designed and implemented AI-based software solution at 14 hospitals, providing first time ability to extract and automate 2M+ unstructured data into actionable insights to improve customer experience.
+
