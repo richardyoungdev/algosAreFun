@@ -203,4 +203,35 @@ const fizzBuzz = (n) => {
     
 };
 
-fizzBuzz(n)
+// fizzBuzz(n)
+
+// intersection
+// reacto
+// repeat: how to create a function that takes in two arguments: a and b as arrays.
+// the function returns a new array containing elements that are in both of the two arrays.
+
+const intersection = (a,b) => {
+    // create results variable
+    let results = [];
+
+    // create new Set() to store the a elements
+    let newSet = new Set();
+
+    // iterate each element in a array
+    for (let element of a){
+        // add each element into the set
+        newSet.add(element);
+    }
+
+    // iterate each element in b and check if b exists in a. 
+    for (let element of b){
+        if(newSet.has(element)){
+            results.push(element)
+        }
+    }
+
+    return results;
+};
+
+intersection([4,2,1,6], [3,6,9,2,10])
+
