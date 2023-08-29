@@ -233,5 +233,69 @@ const intersection = (a,b) => {
     return results;
 };
 
-intersection([4,2,1,6], [3,6,9,2,10])
+// intersection([4,2,1,6], [3,6,9,2,10])
 
+// REACTO
+// repeat: how to create a function that takes an array of numbers as an argument
+// the function should rearrange elements such that all 5s appear at the end.
+
+const fiveSort = (numbers) => {
+    // create two pointers
+    let i = 0;
+    let j = numbers.length - 1;
+
+    // while loop with stopping condition of i < j
+    while ( i < j){
+        // if numbers[j] === 5, decrement j by 1
+        if (numbers[j] === 5) {
+            j--
+        } else if (numbers[i] === 5){
+            // swap the two elements
+            [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+            
+            i++
+        } else {
+            i++
+        }
+    }
+
+    // return numbers
+    return numbers
+};
+
+fiveSort([12, 5, 1, 5, 12, 7])
+
+
+// REACTO
+// repeat: how to create a function that returns indices of the two numbers that add up to the target
+// example: nums = [2,7,11,15] and taget = 9; return [0,1]
+// approach: use hash map and find the compliment, which is number - indexNum
+
+var twoSum = function(nums, target) {
+   // create variable for results 
+   let results = [];
+
+   // create hash map
+   let newMap = new Map();
+
+   // for loop to iterate each element in the nums array
+   for (let i = 0; i < nums.length; i++){
+       // create varaible for current num
+       const num = nums[i];
+
+       // create compliment variable
+       const compliment = target - num;
+
+       // if compliment exists, return [i,]
+       if (newMap.has(compliment)){
+           return [i, newMap.get(compliment)]
+       }
+
+
+       // add num to newMap
+       newMap.set(num, i)
+   }
+
+   // return results
+   return results
+};
